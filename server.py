@@ -16,10 +16,9 @@ def answer():
     while not leader_ans:
         print 'Sleeping..'
         time.sleep(2)
-        # leader = "http://192.168.3.39:3000" # leaderboard.get_best_ip()
-        leader = "http://192.168.3.35:1337" # leaderboard.get_best_ip()
-        print "The leader is: " + str(leader)
-        leader_ans = crowdsourcer.ask_question(q, leader)
+        leader_name, leader_ip = ("Best Team", "http://192.168.3.35:1337") # leaderboard.get_best_ip()
+        print "The leader is {} with ip: {}".format(leader_name, leader_ip)
+        leader_ans = crowdsourcer.ask_question(q, leader_ip)
         print "They replied with: " + str(leader_ans)
 
     return leader_ans
