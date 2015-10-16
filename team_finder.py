@@ -61,6 +61,13 @@ def get_ranked_teams(url, ignore):
     sorted_players = sort_players(filtered_players)
     return sorted_players
 
+def get_our_score(url, our_team):
+    players = load_players(url)
+    for player in players:
+        if player.team == our_team:
+            return player.score
+    return None
+
 if __name__ == "__main__":
     url = sys.argv[1]
     ignore = sys.argv[2]
@@ -71,5 +78,7 @@ if __name__ == "__main__":
         print str(player)
 
     print "you should choose: " + str(get_best_team(url, ignore))
+
+    print "our score is: " + str(get_our_score(url, ignore))
 
 
