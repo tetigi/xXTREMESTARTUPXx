@@ -8,20 +8,17 @@ def ask_question(question, server, timeout=5):
 		return r.text
 	return None
 
-def exception_handler(request, exception):
-	pass
-
 def _netloc(url):
 	return urlparse.urlparse(url).netloc
 
 def distribute(question, participants, timeout=5):
-	scores = dict([(_netloc(p.url), int(p)) for p in participants])
+	scores = dict([(_netloc(p.url), int(p.score)) for p in participants])
 	rs = (grequests.get('%s?q=%s'%(p.url, question), timeout=timeout) for p in participants)
-	responses = grequests.map(rs, exception_handler=exception_handler)
+	responses = grequests.map(rs)
 	answers = {}
 	for r in responses:
 		if r.ok:
-			answers[r.text] = answers.get(r.text, 0) + scores[_netloc(r.url)]
+			answers[r.text] = answers.get(r.text, 0) + scores[_netloc(str(r.url))]
 	if answers:
-		return sorted(answers.items(), key=lambda x: x[1]))[-1][0]
+		return sorted(answers.items(), key=lambda x: x[1])[-1][0]
 	return None
