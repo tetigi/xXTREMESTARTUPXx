@@ -51,21 +51,25 @@ def compare(team1, team2):
 def sort_players(players):
     return sorted(players, cmp=compare)
 
+def get_best_team(url, ignore):
+    sorted_players = get_ranked_teams(url, ignore)
+    return sorted_players[0]
 
+def get_ranked_teams(url, ignore):
+    players = load_players(url)
+    filtered_players = ignore_team(players, ignore)
+    sorted_players = sort_players(filtered_players)
+    return sorted_players
 
 if __name__ == "__main__":
     url = sys.argv[1]
     ignore = sys.argv[2]
 
-    players = load_players(url)
-    filtered_players = ignore_team(players, ignore)
+    ranked = get_ranked_teams(url, ignore)
 
-    sorted_players = sort_players(filtered_players)
-
-
-    for player in sorted_players:
+    for player in ranked:
         print str(player)
 
-    print "you should choose: " + str(sorted_players[0])
+    print "you should choose: " + str(get_best_team(url, ignore))
 
 
