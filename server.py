@@ -1,15 +1,6 @@
 from flask import Flask, request, jsonify
 import re
 
-# Modules
-import mods.reverse
-import mods.arithmetic
-import mods.sum_elements
-import mods.fib
-import mods.earliest
-import mods.max_element
-import mods.romanNumeralsCalculator
-
 app = Flask(__name__)
 
 def def_name():
@@ -25,24 +16,7 @@ def user_reply(msg):
     print 'Please pass input:'
     return raw_input()
 
-def dumb_str(xs):
-    return 'no'
-
-def dumb_int(xs):
-    return 0
-
-questions = {
-        'Convert (\d+) into Roman Numerals': mods.romanNumeralsCalculator.romanNumerals,
-        'What is ([IXV]+) in decimal': mods.romanNumeralsCalculator.romanToDecimal,
-        'what is (\d+) plus (\d+)': mods.arithmetic.plus,
-        'Find 2 elements that sum to 0 in: (.+)': mods.sum_elements.sum_two_elements_to_zero,
-        'which of the following numbers is the largest: (.*)': mods.max_element.max_element,
-        'what is the (\d+)(th|nd|st) number in the Fibonacci sequence': mods.fib.fib,
-        'which of the following is earliest: (.*)': mods.earliest.whichIsEarliest,
-        'what is (\d+) multiplied by (\d+)': mods.arithmetic.multiply,
-        'which of the following is an anagram of \"(\w+)\"': dumb_str,
-        'what is the english scrabble score of (\w+)': dumb_int
-        }
+questions = { }
 
 @app.route("/")
 def answer():
