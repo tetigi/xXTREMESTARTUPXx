@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
 
+import crowdsourcer
+import time
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -10,9 +13,12 @@ def answer():
 
     leader_ans = None
 
-    # while not leader_ans:
-        # leader = leaderboard.get_best_ip()
-        # leader_ans = crowdsourcer.ask_question(leader, q)
+    while not leader_ans:
+        print 'Sleeping..'
+        time.sleep(5)
+        leader = "http://192.168.3.39:3000" # leaderboard.get_best_ip()
+        leader_ans = crowdsourcer.ask_question(q, leader)
+        print leader_ans
 
     return "team_kickstarter" # leader_ans
 
