@@ -14,7 +14,7 @@ def answer():
         # leader = leaderboard.get_best_ip()
         # leader_ans = crowdsourcer.ask_question(leader, q)
 
-    return ":(" # leader_ans
+    return "team_kickstarter" # leader_ans
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=9876, debug=True)
