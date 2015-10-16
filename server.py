@@ -10,15 +10,14 @@ app = Flask(__name__)
 def answer():
     q = request.args.get("q", "")
 
-    print "The question was: " + q
-
     leader_ans = None
 
     while not leader_ans:
         print 'Sleeping..'
-        time.sleep(2)
+        time.sleep(1)
         leading_team = team_finder.get_best_team('http://192.168.3.32:3000/', 'team_kickstarter')
         print "The leader is {} with ip: {}".format(leading_team.team, leading_team.url)
+        print "The question was: " + q
         leader_ans = crowdsourcer.ask_question(q, leading_team.url)
         print "They replied with: " + str(leader_ans)
 
